@@ -1,10 +1,19 @@
 FROM ruby:2.6.3
-RUN apt-get update -qq && apt-get install -y nodejs
+
+# Install node
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
+RUN apt-get install -y nodejs
+
+# Setup application & dependencies
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
+COPY package.json /myapp/package.json
+COPY package-lock.json /myapp/package-lock.json
+RUN npm install
 COPY . /myapp
 
 #!/bin/bash
