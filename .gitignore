@@ -32,4 +32,5 @@
 
 # Ignore local scripts
 start.sh
-test/.DS_Store
+
+**/.DS_Store
